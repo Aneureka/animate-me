@@ -1,0 +1,80 @@
+.index {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  // background-color: #867575;
+  color: white;
+  align-items: stretch;
+}
+
+.bg {
+  background-image: url('http://ww1.sinaimg.cn/large/006tNc79gy1g64t6c2vwuj30lq17c7e6.jpg');
+  background-color: #867575;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  filter: blur(5px) brightness(40%);
+  z-index: -1;
+  transform: scale(1.1);
+}
+
+.intro {
+  display: flex;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.intro .line {
+  font-size: 2rem;
+  // color: white;
+  font-weight: 900;
+}
+
+.pink {
+  color: rgb(252, 224, 229);
+}
+
+.image-picker-area {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.portfolio-area {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.portfolio {
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.footnote {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-top: 2rem;
+  color: white;
+}
+
+.footnote .line, .portfolio-area .line {
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
