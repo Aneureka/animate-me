@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import './index.scss'
 import { set as setGlobalData } from '../../global'
 
@@ -39,10 +39,10 @@ export default class Crop extends Component {
           fixCuttingFrameRatio 
           exportQuality={1} 
           background='rgba(0, 0, 0, 0)'
-          saveFailedToastText='Failed to save cropped image'
-          saveButtonText='😘 Done'
+          saveFailedToastText='出了点差错不能保存照片啦 >_<'
+          saveButtonText='😘 好了'
         />
-        <View className='hint'>Select your avatar and get better result</View>
+        <View className='hint'>选出大头照效果会更好哦~</View>
       </View>
     )
   }

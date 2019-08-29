@@ -19,8 +19,6 @@ export default class ImageHandler extends Component {
 
   componentDidShow () {
     const imgSrc = getGlobalData('imgSrc')
-    console.log('>>>')
-    console.log(imgSrc)
     if (imgSrc) {
       this.setState({
         selfiePath: imgSrc,
@@ -93,14 +91,14 @@ export default class ImageHandler extends Component {
       <View className='index'>
         <View className='image-picker' onClick={this.handleClick} >
           <Image className='picker-icon' src={selfieIcon} mode='widthFix' />
-          <View className='hint'>Upload your selfie here.</View>
+          <View className='hint'>挑张照片试试吧 🙆‍</View>
         </View>
 
         {
           this.state.uploading ? 
             <View className='loading-area'>
               <Image className='origin-image loadding' src={this.state.selfiePath} />
-              <View className='hint'>Please wait...</View>
+              <View className='hint'>等一会会儿...</View>
             </View>
             :
             null
