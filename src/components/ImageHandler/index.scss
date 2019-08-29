@@ -1,14 +1,9 @@
 @import '../../assets/css/perspectiveChange';
 
 .image-picker {
-  // height: 15rem;
   border: 0.4rem dashed pink;
   border-radius: 0.5rem;
   background-color: rgba(255, 255, 255, 0.9);
-  // background-image: url('https://s2.ax1x.com/2019/08/19/m1NM11.png');
-  // background-size: contain;
-  // background-repeat: no-repeat;
-  // background-position: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,8 +14,6 @@
   width: 60%;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  // margin-left: auto;
-  // margin-right: auto;
   flex: 2;
   justify-content: center;
 }
@@ -43,7 +36,6 @@
   align-items: center;
   margin-top: 1.5rem;
   box-sizing: border-box;
-  // border: 0.4rem dashed rgb(41, 71, 126);
   border-radius: 0.5rem;
 }
 
@@ -85,11 +77,10 @@
   align-items: center;
   justify-content: center;
   margin-top: 1.5rem;
-  box-sizing: border-box;
-  border: 0.2rem solid rgb(145, 61, 75);
-  padding: 0.2rem;
 }
 
 .result-image {
   width: 100%;
+  // box-sizing: border-box;
+  border-radius: 0.5rem;
 }

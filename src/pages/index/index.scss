@@ -55,7 +55,7 @@
 .portfolio-area {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,11 +70,19 @@
 .footnote {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
   color: white;
 }
 
 .footnote .line, .portfolio-area .line {
   margin-bottom: 0.5rem;
   font-weight: 700;
+}
+
+.ad-wrapper {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
 }

@@ -2,10 +2,12 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import './index.scss'
 
+import { get as getGlobalData, set as setGlobalData } from '../../global'
 import selfieIcon from '../../assets/images/selfie.png'
+
 import { HOST } from '../../constants'
 
-export default class ImagePicker extends Component {
+export default class ImageHandler extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -13,6 +15,52 @@ export default class ImagePicker extends Component {
       uploading: false,
       animePath: '',
     }
+  }
+
+  componentDidShow () {
+    const imgSrc = getGlobalData('imgSrc')
+    console.log('>>>')
+    console.log(imgSrc)
+    if (imgSrc) {
+      this.setState({
+        selfiePath: imgSrc,
+        uploading: true
+      }, () => {
+        setGlobalData('imgSrc', undefined)
+        this.uploadImage()
+      })
+    }
+  }
+
+
+  uploadImage = () => {
+    Taro.uploadFile({
+      url: `${HOST}/convert`,
+      filePath: this.state.selfiePath,
+      name: 'file',
+      success: (res) => {
+        if (res.statusCode >= 400) {
+          Taro.showToast({
+            title: 'Something went wrong',
+            icon: 'none',
+            mask: false
+          })
+        }
+        else {
+          this.setState({
+            animePath: `${HOST}/${res.data}`,
+            uploading: false
+          })
+        }
+      },
+      error: (err) => {
+        Taro.showToast({
+          title: err,
+          icon: 'none',
+          mask: false
+        })
+      }
+    })
   }
 
   handleClick = () => {
@@ -23,48 +71,11 @@ export default class ImagePicker extends Component {
     })
     Taro.chooseImage({
       count: 1,
-      sizeType: 'compressed',
+      sizeType: 'original',
       success: (res) => {
-        console.log(res)
         if (res.tempFilePaths.length !== 0) {
-          this.setState({
-            selfiePath: res.tempFilePaths[0],
-            uploading: true
-          }, () => {
-            // Taro.showToast({
-            //   title: '正在生成图片，可能需要几十秒的时间，可以先刷刷朋友圈再过来哦~',
-            //   icon: 'none',
-            //   mask: false
-            // })
-            Taro.uploadFile({
-              url: `${HOST}/convert`,
-              filePath: this.state.selfiePath,
-              name: 'file',
-              success: (res) => {
-                console.log(res)
-                if (res.statusCode >= 400) {
-                  console.log(res.statusCode)
-                  Taro.showToast({
-                    title: 'Something went wrong',
-                    icon: 'none',
-                    mask: false
-                  })
-                }
-                else {
-                  this.setState({
-                    animePath: `${HOST}/${res.data}`,
-                    uploading: false
-                  })
-                }
-              },
-              error: (err) => {
-                Taro.showToast({
-                  title: err,
-                  icon: 'none',
-                  mask: false
-                })
-              }
-            })
+          Taro.navigateTo({
+            url: `/pages/crop/index?imgSrc=${res.tempFilePaths[0]}`
           })
         }
       }

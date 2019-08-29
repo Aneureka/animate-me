@@ -1,0 +1,132 @@
+$corner-size: 50px;
+$corner-border-size: 5px;
+$corner-border-style: 10px solid white;
+
+.index {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background:rgba(14, 13, 13,.8);
+  overflow: hidden;
+}
+
+.image-cropper-canvas {
+  position: fixed;
+  top: -200vh;
+  left: 0;
+	width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  z-index: 9;
+}
+
+.content .mask-top {
+  pointer-events: none;
+}
+
+.content .content-mid {
+  display: flex;
+  width: 100%;
+}
+
+.content .content-mid .cutting-frame {
+  box-sizing: border-box;
+  position: relative;
+  border: 1px solid white;
+}
+
+.content .content-mid .mask-right {
+  flex: auto;
+}
+
+.content .mask-bottom {
+  flex: auto;
+}
+
+.corner {
+  pointer-events: auto;
+  position: absolute;
+  width: $corner-size;
+  height: $corner-size;
+  z-index: 10;
+}
+
+.corner-top-left {
+  left: -$corner-border-size;
+  top: -$corner-border-size;
+  border-top: $corner-border-style;
+  border-left: $corner-border-style;
+}
+
+.corner-top-right {
+  right: -$corner-border-size;
+  top: -$corner-border-size;
+  border-top: $corner-border-style;
+  border-right: $corner-border-style;
+}
+
+.corner-bottom-left {
+  left: -$corner-border-size;
+  bottom: -$corner-border-size;
+  border-left: $corner-border-style;
+  border-bottom: $corner-border-style;
+}
+
+.corner-bottom-right {
+  right: -$corner-border-size;
+  bottom: -$corner-border-size;
+  border-right: $corner-border-style;
+  border-bottom: $corner-border-style;
+}
+
+.mask {
+  background-color: rgba($color: #000000, $alpha: 0.2);
+  transition: background-color .5s ease;
+}
+
+.dark {
+  background-color: rgba($color: #000000, $alpha: 0.8)
+}
+
+.img {
+  position: absolute;
+  border: none;
+  backface-visibility: hidden;
+  transform-origin: center;
+  z-index: 2;
+}
+
+.save-button {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 11;
+  background: none;
+  border: none;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  padding: 20px 30px;
+  line-height: 1;
+  transition: .3s ease 
+}
+
+.save-button:active {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.save-button::after {
+  border: none;
+}
