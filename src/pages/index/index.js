@@ -1,7 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Image, Ad } from '@tarojs/components'
+import { View, Image, Ad } from '@tarojs/components'
 import './index.scss'
-import { get as getGlobalData } from '../../global'
 
 
 import ImageHandler from '../../components/ImageHandler';
@@ -15,6 +14,18 @@ export default class Index extends Component {
     navigationBarTextStyle: 'white',
     navigationBarBackgroundColor: '#000',
     backgroundColor: '#000',
+  }
+
+  componentDidMount () {
+    Taro.showShareMenu({
+      withShareTicket: false
+    })
+  }
+
+  onShareAppMessage () {
+    return {
+      title: '看看二次元的自己是什么样儿~'
+    }
   }
 
   render () {

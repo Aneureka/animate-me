@@ -1,0 +1,53 @@
+.index {
+  width: 100vw;
+  height: 100vh;
+  // overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bg {
+  background-image: url('http://ww1.sinaimg.cn/large/006tNc79gy1g64t6c2vwuj30lq17c7e6.jpg');
+  background-color: #867575;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  filter: blur(5px) brightness(40%);
+  z-index: -1;
+  transform: scale(1.1);
+}
+
+.main {
+  margin-left: 10vw;
+  margin-right: 10vw;
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.share-canvas {
+  width: 80vw;
+  height: 105vw;
+  // margin-top: 15vh;
+  // margin-bottom: 3rem;
+}
+
+.save-button {
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  background: white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.save-button::after {
+  border: none;
+}

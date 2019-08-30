@@ -1,11 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image } from '@tarojs/components'
+import { View, Image, Button } from '@tarojs/components'
 import './index.scss'
 
 import { get as getGlobalData, set as setGlobalData } from '../../global'
 import selfieIcon from '../../assets/images/selfie.png'
 
 import { HOST } from '../../constants'
+import { TOKEN } from '../../secret_constants'
 
 export default class ImageHandler extends Component {
   constructor (props) {
@@ -30,16 +31,15 @@ export default class ImageHandler extends Component {
     }
   }
 
-
   uploadImage = () => {
     Taro.uploadFile({
-      url: `${HOST}/convert`,
+      url: `${HOST}/convert?token=${TOKEN}`,
       filePath: this.state.selfiePath,
       name: 'file',
       success: (res) => {
         if (res.statusCode >= 400) {
           Taro.showToast({
-            title: 'Something went wrong',
+            title: '受到不明物体攻击，好像上传不上了',
             icon: 'none',
             mask: false
           })
@@ -52,8 +52,9 @@ export default class ImageHandler extends Component {
         }
       },
       error: (err) => {
+        console.error(err)
         Taro.showToast({
-          title: err,
+          title: '网络好像开小差了..',
           icon: 'none',
           mask: false
         })
@@ -86,6 +87,12 @@ export default class ImageHandler extends Component {
     })
   }
 
+  shareResult = () => {
+    Taro.navigateTo({
+      url: `/pages/share/index?imgSrc=${this.state.animePath}`
+    })
+  }
+
   render () {
     return (
       <View className='index'>
@@ -95,7 +102,7 @@ export default class ImageHandler extends Component {
         </View>
 
         {
-          this.state.uploading ? 
+          this.state.uploading ?
             <View className='loading-area'>
               <Image className='origin-image loadding' src={this.state.selfiePath} />
               <View className='hint'>等一会会儿...</View>
@@ -103,19 +110,20 @@ export default class ImageHandler extends Component {
             :
             null
         }
-        
+
         {
-          this.state.animePath ? 
-            <View className='result-area' onClick={this.handlePreviewResult}>
-              <Image className='result-image' src={this.state.animePath} mode='widthFix' />
+          this.state.animePath ?
+            <View className='result-area'>
+              <Image className='result-image' src={this.state.animePath} mode='widthFix' onClick={this.handlePreviewResult} />
+              <Button className='share-result-button' onClick={this.shareResult}>给大家看看怎么样~</Button>
             </View>
             :
             null
         }
 
       </View>
-      
+
     )
   }
-  
+
 }

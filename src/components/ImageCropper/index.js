@@ -52,7 +52,7 @@ export default class ImageCropper extends Component {
       src: this.props.imageSource,
       success: (res) => {
         // convert image source to native if it's from network
-        if (this.props.imageSource.search(/tmp/) == -1) {
+        if (this.props.imageSource.search(/tmp/) === -1) {
           this.setState({
             imgSrc: res.path
           })
@@ -187,10 +187,10 @@ export default class ImageCropper extends Component {
     this._rectifyImage()
     this.cropImageOnCanvas(true)
   }
- 
-  cropImageOnCanvas = (onlyDraw=false) => { 
+
+  cropImageOnCanvas = (onlyDraw=false) => {
     this.ctx.drawImage(this.state.imgSrc, this.state.imageLeft, this.state.imageTop, this.state.imageWidth, this.state.imageHeight)
-    this.ctx.draw(false, 
+    this.ctx.draw(false,
       setTimeout(() => {
         Taro.canvasToTempFilePath({
           x: this.state.cutLeft,
@@ -205,7 +205,7 @@ export default class ImageCropper extends Component {
           success: (res) => {
             if (onlyDraw !== true) {
               this.props.onGetCroppedImage(
-                res.tempFilePath, 
+                res.tempFilePath,
                 this.state.cutWidth * this.props.exportScale,
                 this.state.cutHeight * this.props.exportScale
               )
@@ -400,7 +400,7 @@ export default class ImageCropper extends Component {
     if (newImageLeft + newImageWidth < curCutLeft + curCutWidth) {
       newImageLeft = curCutLeft + curCutWidth - newImageWidth
     }
-    // 
+    //
     if (newImageTop + newImageHeight < curCutTop + curCutHeight) {
       newImageTop = curCutTop + curCutHeight - newImageHeight
     }
@@ -429,17 +429,17 @@ export default class ImageCropper extends Component {
           </View>
           <View className={'mask mask-bottom' + (this.state.movingCuttingFrame ? ' dark' : '')} />
         </View>
-        <Image 
-          className='img' 
+        <Image
+          className='img'
           src={this.state.imgSrc}
           style={'left: ' + this.state.imageLeft + 'px; top: ' + this.state.imageTop + 'px; width: ' + this.imageWidth + 'px; height: ' + this.state.imageHeight + 'px;'}
           onTouchStart={this.startMoveImage}
           onTouchMove={this.moveImage}
           onTouchEnd={this.stopMoveImage}
         />
-        <Canvas 
+        <Canvas
           canvasId='image-cropper'
-          disableScroll 
+          disableScroll
           className='image-cropper-canvas'
         >
         </Canvas>
@@ -448,7 +448,7 @@ export default class ImageCropper extends Component {
     )
   }
 }
-  
+
 ImageCropper.defaultProps = {
   imageSource: '',
   imageWidth: 0,

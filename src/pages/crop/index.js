@@ -23,6 +23,18 @@ export default class Crop extends Component {
     }
   }
 
+  componentDidMount () {
+    Taro.showShareMenu({
+      withShareTicket: false
+    })
+  }
+
+  onShareAppMessage () {
+    return {
+      title: '看看二次元的自己是什么样儿~'
+    }
+  }
+
   handleReceiveImage = (imgSrc) => {
     setGlobalData('imgSrc', imgSrc)
     Taro.navigateBack()
@@ -32,12 +44,12 @@ export default class Crop extends Component {
     return (
       <View className='index'>
         <View className='bg'></View>
-        <ImageCropper 
-          className='image-cropper' 
-          imageSource={this.state.imgSrc} 
-          onGetCroppedImage={this.handleReceiveImage} 
-          fixCuttingFrameRatio 
-          exportQuality={1} 
+        <ImageCropper
+          className='image-cropper'
+          imageSource={this.state.imgSrc}
+          onGetCroppedImage={this.handleReceiveImage}
+          fixCuttingFrameRatio
+          exportQuality={1}
           background='rgba(0, 0, 0, 0)'
           saveFailedToastText='出了点差错不能保存照片啦 >_<'
           saveButtonText='😘 好了'
