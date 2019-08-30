@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Canvas, Button } from '@tarojs/components'
+import { View, Canvas, Button, Image } from '@tarojs/components'
 import './index.scss'
 import appCodeImage from '../../assets/images/appcode.png'
 
@@ -16,17 +16,17 @@ export default class Index extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      generating: true,
+      tmpImgPath: ''
     }
     this.systemInfo = Taro.getSystemInfoSync()
     this.windowWidth = this.systemInfo.windowWidth
     this.windowHeight = this.systemInfo.windowHeight
+    this.pixelRatio = this.systemInfo.pixelRatio
     this.canvasWidth = this.windowWidth * 0.8
     this.canvasHeight = this.windowWidth * 1.05
     this.canvasBorderRadius = 20
     this.appCodeSize = 80
     this.imgSrc = ''
-    this.tmpImgPath = ''
     this.saved = false
   }
 
@@ -75,21 +75,24 @@ export default class Index extends Component {
   drawOnCanvas = () => {
     let ctx = this.ctx
     // clip to round the border
-    ctx.setLineWidth(0)
+    // ctx.setLineWidth(0)
+    // ctx.setFillStyle('white')
+    // ctx.beginPath()
+    // ctx.moveTo(this.canvasBorderRadius, 0)
+    // ctx.lineTo(this.canvasWidth - this.canvasBorderRadius, 0)
+    // ctx.quadraticCurveTo(this.canvasWidth, 0, this.canvasWidth, this.canvasBorderRadius)
+    // ctx.lineTo(this.canvasWidth, this.canvasHeight - this.canvasBorderRadius)
+    // ctx.quadraticCurveTo(this.canvasWidth, this.canvasHeight, this.canvasWidth - this.canvasBorderRadius, this.canvasHeight)
+    // ctx.lineTo(this.canvasBorderRadius, this.canvasHeight)
+    // ctx.quadraticCurveTo(0, this.canvasHeight, 0, this.canvasHeight - this.canvasBorderRadius)
+    // ctx.lineTo(0, this.canvasBorderRadius)
+    // ctx.quadraticCurveTo(0, 0, this.canvasBorderRadius, 0)
+    // ctx.fill()
+    // ctx.closePath()
+    // ctx.clip()
+
     ctx.setFillStyle('white')
-    ctx.beginPath()
-    ctx.moveTo(this.canvasBorderRadius, 0)
-    ctx.lineTo(this.canvasWidth - this.canvasBorderRadius, 0)
-    ctx.quadraticCurveTo(this.canvasWidth, 0, this.canvasWidth, this.canvasBorderRadius)
-    ctx.lineTo(this.canvasWidth, this.canvasHeight - this.canvasBorderRadius)
-    ctx.quadraticCurveTo(this.canvasWidth, this.canvasHeight, this.canvasWidth - this.canvasBorderRadius, this.canvasHeight)
-    ctx.lineTo(this.canvasBorderRadius, this.canvasHeight)
-    ctx.quadraticCurveTo(0, this.canvasHeight, 0, this.canvasHeight - this.canvasBorderRadius)
-    ctx.lineTo(0, this.canvasBorderRadius)
-    ctx.quadraticCurveTo(0, 0, this.canvasBorderRadius, 0)
-    ctx.fill()
-    ctx.closePath()
-    ctx.clip()
+    ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight)
 
     // draw anime image
     ctx.drawImage(this.imgSrc, 0, 0, this.canvasWidth, this.canvasWidth)
@@ -118,15 +121,14 @@ export default class Index extends Component {
       y: 0,
       width: this.canvasWidth,
       height: this.canvasHeight,
-      destWidth: this.canvasWidth,
-      destHeight: this.canvasHeight,
+      destWidth: this.canvasWidth * this.pixelRatio,
+      destHeight: this.canvasHeight * this.pixelRatio,
       fileType: 'png',
       quality: 1,
       canvasId: this.canvasId,
       success: (res) => {
-        this.tmpImgPath = res.tempFilePath
         this.setState({
-          generating: false
+          tmpImgPath: res.tempFilePath
         })
       },
       fail: (err) => {
@@ -143,9 +145,9 @@ export default class Index extends Component {
       })
       return
     }
-    if (this.tmpImgPath) {
+    if (this.state.tmpImgPath) {
       Taro.saveImageToPhotosAlbum({
-        filePath: this.tmpImgPath,
+        filePath: this.state.tmpImgPath,
         success: () => {
           this.saved = true
           Taro.showToast({
@@ -174,14 +176,9 @@ export default class Index extends Component {
       <View className='index'>
         <View className='bg'></View>
         <View className='main'>
-          <Canvas
-            style={'visibility: ' + (this.state.generating ? 'hidden' : 'visible')}
-            canvasId='share'
-            disableScroll
-            className='share-canvas'
-          />
-          <Button className='save-button' onClick={this.saveImage} style={'visibility: ' + (this.state.generating ? 'hidden' : 'visible')}>保存到相册</Button>
-          <View className='loading' style={'display: ' + (this.state.generating ? 'fixed' : 'none')}>
+          <Image className='share-image' src={this.state.tmpImgPath} style={'display: ' + (this.state.tmpImgPath ? 'flex' : 'none')} />
+          <Button className='save-button' onClick={this.saveImage} style={'display: ' + (this.state.tmpImgPath ? 'flex' : 'none')}>保存到相册</Button>
+          <View className='loading' style={'display: ' + (this.state.tmpImgPath ? 'none' : 'flex')}>
             <View className='sk-folding-cube'>
               <View class='sk-cube1 sk-cube' />
               <View class='sk-cube2 sk-cube' />
@@ -191,6 +188,11 @@ export default class Index extends Component {
             <View className='loading-text'>正在生成中...</View>
           </View>
         </View>
+        <Canvas
+          canvasId='share'
+          disableScroll
+          className='share-canvas'
+        />
       </View>
     )
   }

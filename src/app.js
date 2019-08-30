@@ -14,8 +14,8 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
-      'pages/crop/index',
       'pages/share/index',
+      'pages/crop/index',
     ],
     window: {
       backgroundTextStyle: 'light',

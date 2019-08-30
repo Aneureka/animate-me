@@ -30,15 +30,18 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: stretch;
 }
 
-.share-canvas {
+.share-image {
   width: 80vw;
   height: 105vw;
-  transition: .5s;
+  border-radius: 1rem;
 }
 
 .save-button {
+  flex-direction: column;
+  align-items: center;
   border-radius: 0.5rem;
   box-sizing: border-box;
   background: white;
@@ -136,4 +139,11 @@
   margin-top: 2rem;
   margin-bottom: 2rem;
   font-size: 1rem;
+}
+
+.share-canvas {
+  position: fixed;
+  top: -100vh;
+  width: 80vw;
+  height: 105vw;
 }
