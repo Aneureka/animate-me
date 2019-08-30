@@ -15,6 +15,9 @@ export default class Index extends Component {
 
   constructor (props) {
     super(props)
+    this.state = {
+      generating: true,
+    }
     this.systemInfo = Taro.getSystemInfoSync()
     this.windowWidth = this.systemInfo.windowWidth
     this.windowHeight = this.systemInfo.windowHeight
@@ -48,7 +51,6 @@ export default class Index extends Component {
 
   initializeImage = () => {
     const params = this.$router.params
-    console.log(params)
     if (params && params.imgSrc) {
       this.imgSrc = params.imgSrc
     }
@@ -123,6 +125,9 @@ export default class Index extends Component {
       canvasId: this.canvasId,
       success: (res) => {
         this.tmpImgPath = res.tempFilePath
+        this.setState({
+          generating: false
+        })
       },
       fail: (err) => {
         console.error(err)
@@ -141,8 +146,7 @@ export default class Index extends Component {
     if (this.tmpImgPath) {
       Taro.saveImageToPhotosAlbum({
         filePath: this.tmpImgPath,
-        success: (res) => {
-          console.log(res)
+        success: () => {
           this.saved = true
           Taro.showToast({
             title: '好啦，快去给大家看看怎么样吧~',
@@ -165,19 +169,27 @@ export default class Index extends Component {
     }
   }
 
-
-
   render () {
     return (
       <View className='index'>
         <View className='bg'></View>
         <View className='main'>
           <Canvas
+            style={'visibility: ' + (this.state.generating ? 'hidden' : 'visible')}
             canvasId='share'
             disableScroll
             className='share-canvas'
-          ></Canvas>
-          <Button className='save-button' onClick={this.saveImage}>保存到相册</Button>
+          />
+          <Button className='save-button' onClick={this.saveImage} style={'visibility: ' + (this.state.generating ? 'hidden' : 'visible')}>保存到相册</Button>
+          <View className='loading' style={'display: ' + (this.state.generating ? 'fixed' : 'none')}>
+            <View className='sk-folding-cube'>
+              <View class='sk-cube1 sk-cube' />
+              <View class='sk-cube2 sk-cube' />
+              <View class='sk-cube4 sk-cube' />
+              <View class='sk-cube3 sk-cube' />
+            </View>
+            <View className='loading-text'>正在生成中...</View>
+          </View>
         </View>
       </View>
     )
