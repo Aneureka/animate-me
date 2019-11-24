@@ -70,7 +70,7 @@
 .footnote {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   color: white;
 }
@@ -81,7 +81,8 @@
 }
 
 .ad-wrapper {
-  margin-left: 1.5rem;
+  width: 100%;
+  // margin-left: 1.5rem;
   margin-right: 1.5rem;
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;

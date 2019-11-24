@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Taro, { Component } from '@tarojs/taro'
 import { View, Canvas, Button, Image } from '@tarojs/components'
 import './index.scss'
@@ -28,6 +29,7 @@ export default class Index extends Component {
     this.appCodeSize = 80
     this.imgSrc = ''
     this.saved = false
+    this.interstitialAd = null
   }
 
   componentDidMount () {
@@ -36,6 +38,7 @@ export default class Index extends Component {
     })
     this.initializeShareCanvas()
     this.initializeImage()
+    this.initializeInterstitialAd()
   }
 
   onShareAppMessage () {
@@ -66,15 +69,28 @@ export default class Index extends Component {
       })
     } else {
       Taro.showToast({
-        title: '我要的图片呢？',
+        title: '我要的图呢？',
         icon: 'none'
       })
     }
   }
 
+  initializeInterstitialAd = () => {
+    console.log(wx)
+    console.log(wx.createInterstitialAd)
+    if (wx.createInterstitialAd) {
+      this.interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-b3ed856899a32552'
+      })
+      console.log(this.interstitialAd)
+      this.interstitialAd.onLoad(() => {})
+      this.interstitialAd.onClose(() => {})
+    }
+  }
+
   drawOnCanvas = () => {
     let ctx = this.ctx
-    // clip to round the border
+    // // clip to round the border
     // ctx.setLineWidth(0)
     // ctx.setFillStyle('white')
     // ctx.beginPath()
@@ -163,6 +179,12 @@ export default class Index extends Component {
           })
         }
       })
+      // show interstitial ad
+      if (this.interstitialAd) {
+        this.interstitialAd.show().catch((err) => {
+          console.error(err)
+        })
+      }
     } else {
       Taro.showToast({
         title: '呃，好像保存不了图片呢，重新进来一下试试吧 QAQ',
