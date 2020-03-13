@@ -57,10 +57,10 @@ export default class Index extends Component {
           <Image className='portfolio' src={portfolioImage} mode='widthFix'></Image>
         </View>
         <View className='footnote'>
-          <View className='line'>🤕 Google cloud 已经到期，没法再续费啦，所以服务会在一个月内停止，大家且用且珍惜吧0.0，之后某一天会重新开的，如果有什么问题或想法，直接发给我下面的邮箱吧~</View>
+          <View className='line'>🤕 前面一段没银子买服务器，耽搁了很久，抱歉，现在一张照片处理大概得 20 秒左右~</View>
           <View className='line'>💛 素质三连~ 感恩 QAQ</View>
           <View className='ad-wrapper'>
-            <Ad unitId='adunit-eb5e227f68f2270b' style='border-radius: 0.5rem;'></Ad>
+            <Ad unitId='adunit-eb5e227f68f2270b'></Ad>
           </View>
           <View className='line'>🤲 开源地址 https://github.com/aneureka/animate-me</View>
           <View className='line'>👏 风格转换算法来自 Junho Kim 等人的 UGATIT 模型</View>

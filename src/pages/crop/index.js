@@ -1,9 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
+
 import './index.scss'
 import { set as setGlobalData } from '../../global'
-
-
 import ImageCropper from '../../components/ImageCropper'
 
 
